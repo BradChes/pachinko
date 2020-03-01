@@ -20,16 +20,16 @@ class GameScene: SKScene {
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
         
+        makeSlot(at: CGPoint(x: 128, y: 0), isGood: true)
+        makeSlot(at: CGPoint(x: 384, y: 0), isGood: false)
+        makeSlot(at: CGPoint(x: 640, y: 0), isGood: true)
+        makeSlot(at: CGPoint(x: 896, y: 0), isGood: false)
+        
         makeBouncer(at: CGPoint(x: 0, y: 0))
         makeBouncer(at: CGPoint(x: 256, y: 0))
         makeBouncer(at: CGPoint(x: 512, y: 0))
         makeBouncer(at: CGPoint(x: 768, y: 0))
         makeBouncer(at: CGPoint(x: 1024, y: 0))
-        
-        makeSlot(at: CGPoint(x: 128, y: 0), isGood: true)
-        makeSlot(at: CGPoint(x: 384, y: 0), isGood: false)
-        makeSlot(at: CGPoint(x: 640, y: 0), isGood: true)
-        makeSlot(at: CGPoint(x: 896, y: 0), isGood: false)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -95,11 +95,15 @@ class GameScene: SKScene {
 }
 
 extension GameScene: SKPhysicsContactDelegate {
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "ball" {
-            collision(between: contact.bodyA.node!, object: contact.bodyB.node!)
-        } else if contact.bodyB.node?.name == "ball" {
-            collision(between: contact.bodyB.node!, object: contact.bodyA.node!)
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
+        
+        if nodeA.name == "ball" {
+            collision(between: nodeA, object: nodeB)
+        } else if nodeB.name == "ball" {
+            collision(between: nodeB, object: nodeA)
         }
     }
 }
