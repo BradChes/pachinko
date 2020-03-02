@@ -8,6 +8,10 @@ Application mimicking pachinko; a game originating in Japan where the aim is to 
 
 ## Examples within this code
 - SpriteKit
+- Physics
+- Blend modes
+- Radians
+- CGFloats
 
 ## Demonstration
 Small demonstration as to what the game does when on device.
