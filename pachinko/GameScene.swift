@@ -11,6 +11,7 @@ import SpriteKit
 class GameScene: SKScene {
     var scoreLabel: SKLabelNode!
     var editLabel: SKLabelNode!
+    var ballsLabel: SKLabelNode!
     
     var score = 0 {
         didSet {
@@ -26,6 +27,11 @@ class GameScene: SKScene {
             }
         }
     }
+    var ballLimit = 5 {
+        didSet {
+            ballsLabel.text = "Balls: \(ballLimit)"
+        }
+    }
     
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
@@ -39,6 +45,11 @@ class GameScene: SKScene {
         scoreLabel.horizontalAlignmentMode = .right
         scoreLabel.position = CGPoint(x: 980, y: 700)
         addChild(scoreLabel)
+        
+        ballsLabel = SKLabelNode(fontNamed: "chalkduster")
+        ballsLabel.text = "Balls: 5"
+        ballsLabel.position = CGPoint(x: 910, y: 650)
+        addChild(ballsLabel)
         
         editLabel = SKLabelNode(fontNamed: "chalkduster")
         editLabel.text = "Edit"
