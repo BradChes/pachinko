@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C659AFCA240D32C60024E578 /* FireParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = C659AFC9240D32C60024E578 /* FireParticles.sks */; };
 		C6ED61212407EAB60059F172 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ED61202407EAB60059F172 /* AppDelegate.swift */; };
 		C6ED61232407EAB60059F172 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C6ED61222407EAB60059F172 /* GameScene.sks */; };
 		C6ED61272407EAB60059F172 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6ED61262407EAB60059F172 /* GameScene.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C659AFC9240D32C60024E578 /* FireParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticles.sks; sourceTree = "<group>"; };
 		C6ED611D2407EAB60059F172 /* Pachinko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pachinko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6ED61202407EAB60059F172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6ED61222407EAB60059F172 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				C6ED612A2407EAB60059F172 /* Main.storyboard */,
 				C6ED612D2407EABA0059F172 /* Assets.xcassets */,
 				C6ED612F2407EABA0059F172 /* LaunchScreen.storyboard */,
+				C659AFC9240D32C60024E578 /* FireParticles.sks */,
 				C6ED61322407EABA0059F172 /* Info.plist */,
 			);
 			path = pachinko;
@@ -130,6 +133,7 @@
 			files = (
 				C6ED612C2407EAB60059F172 /* Main.storyboard in Resources */,
 				C6ED61232407EAB60059F172 /* GameScene.sks in Resources */,
+				C659AFCA240D32C60024E578 /* FireParticles.sks in Resources */,
 				C6ED612E2407EABA0059F172 /* Assets.xcassets in Resources */,
 				C6ED61312407EABA0059F172 /* LaunchScreen.storyboard in Resources */,
 			);
