@@ -12,6 +12,7 @@ class GameScene: SKScene {
     var scoreLabel: SKLabelNode!
     var editLabel: SKLabelNode!
     var ballsLabel: SKLabelNode!
+    var resetLabel: SKLabelNode!
     
     var score = 0 {
         didSet {
@@ -56,6 +57,11 @@ class GameScene: SKScene {
         editLabel.position = CGPoint(x: 80, y: 700)
         addChild(editLabel)
         
+        resetLabel = SKLabelNode(fontNamed: "chalkduster")
+        resetLabel.text = "Reset"
+        resetLabel.position = CGPoint(x: 80, y: 650)
+        addChild(resetLabel)
+        
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
         
@@ -76,6 +82,17 @@ class GameScene: SKScene {
         let location = touch.location(in: self)
         let objects = nodes(at: location)
         
+        if objects.contains(resetLabel) {
+            for child in self.children {
+                if child.name == "box" ||  child.name == "ball" {
+                    child.removeFromParent()
+                }
+            }
+            score = 0
+            ballLimit = 5
+            return
+        }
+        
         if objects.contains(editLabel) {
             editingMode.toggle()
         } else {
@@ -87,6 +104,7 @@ class GameScene: SKScene {
 
                 box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
                 box.physicsBody?.isDynamic = false
+                box.name = "box"
                 addChild(box)
             } else if ballLimit > 0 {
                 let balls = ["ballRed", "ballBlue", "ballCyan", "ballGreen", "ballGrey", "ballPurple", "ballYellow"]
@@ -97,6 +115,7 @@ class GameScene: SKScene {
                 ball.position.x = location.x
                 ball.position.y = 700
                 ball.name = "ball"
+                ballLimit -= 1
                 addChild(ball)
             }
         }
@@ -146,7 +165,6 @@ class GameScene: SKScene {
         } else if object.name == "bad" {
             destroy(ball: ball)
             score -= 1
-            ballLimit -= 1
         }
     }
     
