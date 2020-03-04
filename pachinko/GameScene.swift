@@ -11,6 +11,8 @@ import SpriteKit
 class GameScene: SKScene {
     var scoreLabel: SKLabelNode!
     var editLabel: SKLabelNode!
+    var ballsLabel: SKLabelNode!
+    var resetLabel: SKLabelNode!
     
     var score = 0 {
         didSet {
@@ -24,6 +26,11 @@ class GameScene: SKScene {
             } else {
                 editLabel.text = "Edit"
             }
+        }
+    }
+    var ballLimit = 5 {
+        didSet {
+            ballsLabel.text = "Balls: \(ballLimit)"
         }
     }
     
@@ -40,10 +47,20 @@ class GameScene: SKScene {
         scoreLabel.position = CGPoint(x: 980, y: 700)
         addChild(scoreLabel)
         
+        ballsLabel = SKLabelNode(fontNamed: "chalkduster")
+        ballsLabel.text = "Balls: 5"
+        ballsLabel.position = CGPoint(x: 910, y: 650)
+        addChild(ballsLabel)
+        
         editLabel = SKLabelNode(fontNamed: "chalkduster")
         editLabel.text = "Edit"
         editLabel.position = CGPoint(x: 80, y: 700)
         addChild(editLabel)
+        
+        resetLabel = SKLabelNode(fontNamed: "chalkduster")
+        resetLabel.text = "Reset"
+        resetLabel.position = CGPoint(x: 80, y: 650)
+        addChild(resetLabel)
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -65,6 +82,17 @@ class GameScene: SKScene {
         let location = touch.location(in: self)
         let objects = nodes(at: location)
         
+        if objects.contains(resetLabel) {
+            for child in self.children {
+                if child.name == "box" ||  child.name == "ball" {
+                    child.removeFromParent()
+                }
+            }
+            score = 0
+            ballLimit = 5
+            return
+        }
+        
         if objects.contains(editLabel) {
             editingMode.toggle()
         } else {
@@ -76,14 +104,18 @@ class GameScene: SKScene {
 
                 box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
                 box.physicsBody?.isDynamic = false
+                box.name = "box"
                 addChild(box)
-            } else {
-                let ball = SKSpriteNode(imageNamed: "ballRed")
+            } else if ballLimit > 0 {
+                let balls = ["ballRed", "ballBlue", "ballCyan", "ballGreen", "ballGrey", "ballPurple", "ballYellow"]
+                let ball = SKSpriteNode(imageNamed: balls[Int.random(in: 0...6)])
                 ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
                 ball.physicsBody?.restitution = 0.4
                 ball.physicsBody?.contactTestBitMask = ball.physicsBody?.collisionBitMask ?? 0
-                ball.position = location
+                ball.position.x = location.x
+                ball.position.y = 700
                 ball.name = "ball"
+                ballLimit -= 1
                 addChild(ball)
             }
         }
@@ -129,6 +161,7 @@ class GameScene: SKScene {
         if object.name == "good" {
             destroy(ball: ball)
             score += 1
+            ballLimit += 1
         } else if object.name == "bad" {
             destroy(ball: ball)
             score -= 1
