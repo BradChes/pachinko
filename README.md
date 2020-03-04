@@ -16,7 +16,7 @@ Application mimicking pachinko; a game originating in Japan where the aim is to 
 ## Demonstration
 Small demonstration as to what the game does when on device.
 </br>
-<!-- <p align="center">
+<p align="center">
 <img src="demo/pachinko.gif" alt="Application demonstration"
 	title="Application demonstration" width="250" height="500" />
-</p> -->
+</p>
