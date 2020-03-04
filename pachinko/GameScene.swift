@@ -88,7 +88,7 @@ class GameScene: SKScene {
                 box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
                 box.physicsBody?.isDynamic = false
                 addChild(box)
-            } else {
+            } else if ballLimit > 0 {
                 let balls = ["ballRed", "ballBlue", "ballCyan", "ballGreen", "ballGrey", "ballPurple", "ballYellow"]
                 let ball = SKSpriteNode(imageNamed: balls[Int.random(in: 0...6)])
                 ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
@@ -142,9 +142,11 @@ class GameScene: SKScene {
         if object.name == "good" {
             destroy(ball: ball)
             score += 1
+            ballLimit += 1
         } else if object.name == "bad" {
             destroy(ball: ball)
             score -= 1
+            ballLimit -= 1
         }
     }
     
